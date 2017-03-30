@@ -4,6 +4,9 @@ from simple_es.identifier.identifies import Identifies
 class DomainEvent():
     """
     Base class for all domain driven events
+
+    TODO: Split logic around saving to a data store into a separate class
+    TODO: Restrict the ability to toggle recorded
     """
     identifier = None
     _recorded = False
