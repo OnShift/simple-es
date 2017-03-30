@@ -6,6 +6,7 @@ class DomainEvent():
     Base class for all domain driven events
     """
     identifier = None
+    _recorded = False
 
     def __init__(self, identifier=None):
         if not isinstance(identifier, Identifies):
