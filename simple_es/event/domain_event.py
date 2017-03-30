@@ -8,6 +8,7 @@ class DomainEvent():
     TODO: Split logic around saving to a data store into a separate class
     TODO: Restrict the ability to toggle recorded
     """
+    event_type = None
     identifier = None
     _recorded = False
 
