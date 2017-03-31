@@ -1,21 +1,31 @@
 class Identifies():
-    _id = None
-    _secondary_id = None
+    _primary_key = None
+    _secondary_key = None
+
+    key_schema = None
 
     def __init__(self, primary_key, secondary_key=None):
-        self._id = primary_key
+        if self.key_schema is None:
+            raise AttributeError('Event identifiers require a key schema containing at least one attribute name',
+                                 self.key_schema)
 
-        if secondary_key:
-            self._secondary_id = secondary_key
+        # Zip the key names and values together
+        keys = zip(self.key_schema, [primary_key, secondary_key])
+
+        # Generate the event key mapping(s)
+        self._primary_key, self._secondary_key = [{k: v} for k, v in keys]
 
     @property
-    def id(self):
-        return self._id
+    def key(self):
+        if self._secondary_key:
+            return dict(**self._primary_key, **self._secondary_key)
+
+        return self._primary_key
 
     @property
     def partition_key(self):
-        return self._id
+        return self._primary_key
 
     @property
     def sort_key(self):
-        return self._secondary_id
+        return self._secondary_key

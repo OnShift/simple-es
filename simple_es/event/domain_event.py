@@ -9,11 +9,20 @@ class DomainEvent():
     TODO: Restrict the ability to toggle recorded
     """
     event_type = None
-    identifier = None
+    _identifier = None
     _recorded = False
 
     def __init__(self, identifier=None):
         if not isinstance(identifier, Identifies):
             raise TypeError('Event identifier must be an instance of the Identifies class', identifier)
 
-        self.identifier = identifier
+        self._identifier = identifier
+
+    @property
+    def attributes(self):
+        """
+        Filter out private member variables (names prefixed with an underscore)
+        """
+        return {key: value for key, value
+                in self.__dict__.items()
+                if key.startswith('_') is False}
