@@ -12,11 +12,22 @@ class DomainEvent():
     _identifier = None
     _recorded = False
 
-    def __init__(self, identifier=None):
+    def __init__(self, identifier=None, event_type=None):
+        # Validate that identifier is an instance of an event Identifier
         if not isinstance(identifier, Identifies):
-            raise TypeError('Event identifier must be an instance of the Identifies class', identifier)
+            raise TypeError('Event identifier must be an instance of the Identifies class',
+                            identifier,
+                            type(identifier))
 
+        # Validate that event type was set in a child
+        if event_type is None:
+            raise TypeError('Event type must be a string', event_type, type(event_type))
+
+        # Assign the identifier to the event
         self._identifier = identifier
+
+        # Assign the type to the event
+        self.event_type = event_type
 
     @property
     def attributes(self):
