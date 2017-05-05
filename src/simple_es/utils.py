@@ -28,6 +28,6 @@ def camelcase(snake_str, upper=True):
 
 
 def cameldict(snake_dict, upper=True):
-    return {camelcase(key): camelize(value)
+    return {camelcase(key): value if isinstance(value, str) else camelize(value)
             for key, value
             in snake_dict.items()}
