@@ -1,3 +1,14 @@
+def camelize(needsCamelizing):
+    if isinstance(needsCamelizing, dict):
+        return cameldict(needsCamelizing)
+    elif isinstance(needsCamelizing, list):
+        return [camelize(el) for el in needsCamelizing]
+    elif isinstance(needsCamelizing, str):
+        return camelcase(needsCamelizing)
+    else:
+        return None
+
+
 def camelcase(snake_str, upper=True):
     """
     Format a string from snake case to upper or lower camelCase
@@ -17,10 +28,8 @@ def camelcase(snake_str, upper=True):
 
 
 def cameldict(snake_dict, upper=True):
-    if isinstance(snake_dict, dict):
-        return {camelcase(key): cameldict(value)
-                for key, value
-                in snake_dict.items()}
+    return {camelcase(key): cameldict(value)
+            for key, value
+            in snake_dict.items()}
 
-    return snake_dict
-    # import ipdb; from pprint import pprint; ipdb.set_trace();
+

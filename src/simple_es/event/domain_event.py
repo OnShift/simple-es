@@ -1,5 +1,5 @@
 from simple_es.identifier.identifies import Identifies
-from simple_es.utils import cameldict
+from simple_es.utils import camelize
 
 
 class DomainEvent():
@@ -35,7 +35,7 @@ class DomainEvent():
         """
         Filter out private member variables (names prefixed with an underscore)
         """
-        return cameldict({
+        return camelize({
             k: v for k, v
             in self.__dict__.items()
             if k.startswith('_') is False
